@@ -1,10 +1,6 @@
 #uncomment for development host prompt color scheme
 #dev_host=yes
-if [ "$dev_host" = yes ]; then
-	color_prompt_pattern='${debian_chroot:+($debian_chroot)}\[\e[1;31m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[1;31m\]\h\[\e[m\]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\\$ '
-else
-	color_prompt_pattern='${debian_chroot:+($debian_chroot)}\[\033[0;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\\$ '
-fi
+
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -25,7 +21,11 @@ fi
 
 # set a fancy prompt (non-color, overwrite the one in /etc/profile)
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-
+if [ "$dev_host" = yes ]; then
+	color_prompt_pattern='${debian_chroot:+($debian_chroot)}\[\e[1;31m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[1;31m\]\h\[\e[m\]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+	color_prompt_pattern='${debian_chroot:+($debian_chroot)}\[\033[0;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+fi
 # Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
